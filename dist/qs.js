@@ -324,9 +324,12 @@ var arrayPrefixGenerators = {
     indices: function indices(prefix, key) {
         return prefix + '[' + key + ']';
     },
+    pipe: 'pipe',
     repeat: function repeat(prefix) {
         return prefix;
-    }
+    },
+    space: 'space',
+    tab: 'tab'
 };
 
 var isArray = Array.isArray;
@@ -388,6 +391,12 @@ var stringify = function stringify(
         obj = serializeDate(obj);
     } else if (generateArrayPrefix === 'comma' && isArray(obj)) {
         obj = obj.join(',');
+    } else if (generateArrayPrefix === 'space' && isArray(obj)) {
+        obj = obj.join(' ');
+    } else if (generateArrayPrefix === 'pipe' && isArray(obj)) {
+        obj = obj.join('|');
+    } else if (generateArrayPrefix === 'tab' && isArray(obj)) {
+        obj = obj.join('\t');
     }
 
     if (obj === null) {
